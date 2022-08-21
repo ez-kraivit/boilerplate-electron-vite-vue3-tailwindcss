@@ -28,7 +28,7 @@ export default {
     ...mapActions('general',['setLogout']),
     async logout(){
       const rep = await this.setLogout()
-      if (rep) (this as any).$router.push({ path: '/login' }) 
+      if (rep) (this as any).$router.push({ path: '/' }) 
     }
   }
 }

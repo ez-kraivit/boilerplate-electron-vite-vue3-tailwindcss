@@ -44,6 +44,13 @@
 </template>
 
 <script lang="ts">
+import  { ipcRenderer } from "electron"
+
+ipcRenderer.on("OutputDemo", async (event, data) => {
+  console.log(data);
+  // alert("ประกาศ")
+});
+
 import { mapActions } from 'vuex';
 export default {
   data() {
@@ -52,16 +59,11 @@ export default {
       password: '' as string,
     }
   },
-  created() {
-    // console.log(router.)
-    // const routes = this.$route
-    // console.log(routes)
-  },
   methods: {
     ...mapActions('general',['setLogin']),
     async login(username: string, password: string) {
-      const rep = await this.setLogin(username,password)
-      rep ? (this as any).$router.push({ path: '/' }) : alert("So Sad")
+      const rep = await this.setLogin({username,password})
+      rep ? (this as any).$router.push({ path: '/home' }) : alert("So Sad")
     },
     redirect(path: string) {
       (this as any).$router.push({ path })

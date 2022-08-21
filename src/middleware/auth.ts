@@ -1,11 +1,7 @@
-import Cookies from "js-cookie";
-
-export default function log({ next }:any){
+export default function log({ next , router }:any){
     // console.log(window.location);
-    // if (!Cookies.get("token")){
-    //     console.log('ไม่พบ Auth');
-        
-    //     return window.location.href = "/login";
+    // if (!Cookies.get("token")){        
+    //     router.push("/login");
     // }
     return next()
 }

@@ -1,6 +1,6 @@
-import Cookies from 'js-cookie'
-import { Store } from "vuex/types/index"
+import  { ipcRenderer } from "electron"
 
+import { Store as IStore } from "vuex/types/index"
 interface ILogin {
     username: string
     password: string
@@ -17,12 +17,13 @@ export default {
         }
     },
     actions:{
-        setLogin({commit}:Store<string>, payload: ILogin):Promise<boolean>{
-            Cookies.set("token", 'asdasdasd', { expires: new Date(new Date().getTime() + 14400000), secure: true, sameSite: 'strict' })
+        setLogin({commit}:IStore<string>, payload: ILogin):Promise<boolean>{
+            ipcRenderer.send("resize-window",{width:1000,height:750})
+            ipcRenderer.send("InputDemo",payload.username)
             return Promise.resolve(true)
         },
-        setLogout({commit}:Store<string>):Promise<boolean>{
-            Cookies.remove("token")
+        setLogout({commit}:IStore<string>):Promise<boolean>{
+            ipcRenderer.send("resize-window",{width:500,height:600})
             return Promise.resolve(true)
         }
     }

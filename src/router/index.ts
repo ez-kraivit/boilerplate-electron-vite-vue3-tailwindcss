@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 import General from "./General"
 
@@ -7,16 +7,16 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes: routes
 })
 
-// router.beforeEach((to, from, next) => {
-//     const middleware:any = to.meta.middleware
-//     if(to.meta.middleware){
-//         middleware({ next});
-//     }
-//     return next();
-// });
+router.beforeEach((to, from, next) => {
+    const middleware:any = to.meta.middleware
+    if(to.meta.middleware){
+        middleware({ next , router  });
+    }
+    return next();
+});
 
 export default router;

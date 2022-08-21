@@ -9,7 +9,7 @@ import "./global.css"
 // import './samples/node-api'
 
 createApp(App)
-  // .use(router)
+  .use(router)
   .use(store)
   .mount('#app')
   .$nextTick(() => {

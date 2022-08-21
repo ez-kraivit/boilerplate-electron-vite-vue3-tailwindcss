@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
+import "./ipcMain";
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -31,7 +32,7 @@ const preload = join(__dirname, '../preload/index.js')
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
 const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`
 // const url =  `file://${join(__dirname, "../../dist/index.html")}`
-// const indexHtml = `${join(__dirname, "../../dist/index.html")}`
+// const indexHtml = `file://${join(__dirname, "../../dist/index.html")}`
 const indexHtml = join(ROOT_PATH.dist, 'index.html')
 
 async function createWindow() {
@@ -40,8 +41,8 @@ async function createWindow() {
     icon: join(ROOT_PATH.public, 'favicon.ico'),
     frame:false,
     resizable:false,
-    width: 1000,
-    height: 750,
+    width: 500,
+    height: 600,
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -50,9 +51,7 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-  })  
-  console.log(app.isPackaged);
-  
+  })    
   if (app.isPackaged) {
     win.loadFile(indexHtml)
   } else {
